@@ -41,7 +41,7 @@ public class TST<T> {
      */
     
     public func get(_ key: String) -> T? {
-        guard key.characters.count > 0 else {
+        guard !key.isEmpty else {
             print("key must have length >= 0")
             return nil
         }
@@ -60,7 +60,7 @@ public class TST<T> {
             return get(x!.left, key, d)
         } else if key[index] > x!.key {
             return get(x!.right, key, d)
-        } else if d < key.characters.count - 1 {
+        } else if d < key.lengthOfBytes(using: .utf8) - 1 {
             return get(x!.mid, key, d+1)
         }
         return x
@@ -92,7 +92,7 @@ public class TST<T> {
             x!.left = put(x!.left, key, val, d)
         } else if key[index] > x!.key {
             x!.right = put(x!.right, key, val, d)
-        } else if d < key.characters.count - 1 {
+        } else if d < key.lengthOfBytes(using: .utf8) - 1 {
             x!.mid = put(x!.mid, key, val, d + 1)
         } else {
             x!.val = val
